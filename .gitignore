@@ -1,0 +1,9 @@
+__pycache__/
+output/
+input/
+renders/exp_sheet.jpg
+renders/compare_scenes.jpg
+renders/views/
+renders/views_photo_first/
+*.log
+renders/views_clay_only/

@@ -1,0 +1,80 @@
+{
+ "1": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "sofa_white.png"
+  }
+ },
+ "2": {
+  "class_type": "Hy3DModelLoader",
+  "inputs": {
+   "model": "hunyuan3d-2\\hunyuan3d-dit-v2-0\\model.fp16.safetensors",
+   "attention_mode": "sdpa",
+   "cublas_ops": false
+  }
+ },
+ "3": {
+  "class_type": "Hy3DGenerateMesh",
+  "inputs": {
+   "pipeline": [
+    "2",
+    0
+   ],
+   "image": [
+    "1",
+    0
+   ],
+   "guidance_scale": 5.5,
+   "steps": 50,
+   "seed": 42,
+   "scheduler": "FlowMatchEulerDiscreteScheduler",
+   "force_offload": true
+  }
+ },
+ "4": {
+  "class_type": "Hy3DVAEDecode",
+  "inputs": {
+   "vae": [
+    "2",
+    1
+   ],
+   "latents": [
+    "3",
+    0
+   ],
+   "box_v": 1.01,
+   "octree_resolution": 384,
+   "num_chunks": 8000,
+   "mc_level": 0.0,
+   "mc_algo": "mc",
+   "enable_flash_vdm": true,
+   "force_offload": true
+  }
+ },
+ "5": {
+  "class_type": "Hy3DPostprocessMesh",
+  "inputs": {
+   "trimesh": [
+    "4",
+    0
+   ],
+   "remove_floaters": true,
+   "remove_degenerate_faces": true,
+   "reduce_faces": true,
+   "max_facenum": 80000,
+   "smooth_normals": false
+  }
+ },
+ "6": {
+  "class_type": "Hy3DExportMesh",
+  "inputs": {
+   "trimesh": [
+    "5",
+    0
+   ],
+   "filename_prefix": "3d/sofa_w",
+   "file_format": "glb",
+   "save_file": true
+  }
+ }
+}

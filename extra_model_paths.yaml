@@ -1,0 +1,5 @@
+flux2_klein:
+  base_path: D:/Models/Image/FLUX2
+  diffusion_models: klein-4b
+  text_encoders: comfy/split_files/text_encoders
+  vae: comfy/split_files/vae
